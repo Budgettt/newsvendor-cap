@@ -1,0 +1,71 @@
+.homepage-container {
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+  padding: 2rem;
+  max-width: 960px;
+  margin: auto;
+}
+
+.homepage-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.homepage-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.homepage-buttons {
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.primary-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.secondary-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+.tertiary-btn {
+  background-color: #17a2b8;
+  color: white;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.homepage-features {
+  margin-bottom: 3rem;
+}
+
+.homepage-leaderboard table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.homepage-leaderboard th,
+.homepage-leaderboard td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.homepage-footer {
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 0.9rem;
+  color: #777;
+}
