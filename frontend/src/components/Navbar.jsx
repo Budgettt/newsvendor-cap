@@ -8,13 +8,13 @@ const Navbar = () => {
         <Link to="/">📰 Newsvendor Game</Link>
       </div>
       <ul className="navbar-links">
-        <li>
+        <li className="navbar-options">
           <Link to="/">Home</Link>
         </li>
-        <li>
+        <li className="navbar-options">
           <Link to="/game">Play</Link>
         </li>
-        <li>
+        <li className="navbar-options">
           <Link to="/about">About</Link>
         </li>
       </ul>

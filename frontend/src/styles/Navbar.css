@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #222;
+  background-color: #ffffff;
   padding: 0.75rem 1.5rem;
   color: #fff;
   font-family: "Segoe UI", sans-serif;
@@ -12,7 +12,7 @@
   text-decoration: none;
   font-size: 1.25rem;
   font-weight: bold;
-  color: #fff;
+  color: #000000;
 }
 
 .navbar-links {
@@ -29,13 +29,17 @@
 
 .navbar-links a {
   text-decoration: none;
-  color: #ddd;
+  color: #000000;
   font-weight: 500;
 }
 
 .navbar-links .active a,
 .navbar-links li:hover a {
   color: #00b7ff;
+}
+
+.navbar-options {
+  font-size: medium;
 }
 
 @media (max-width: 600px) {
