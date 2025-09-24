@@ -145,6 +145,7 @@ const GamePage = () => {
 
     // Create next table entry
     const newEntry = {
+      playerName,
       round,
       orderQty: qty,
       demand: currentDemand,
@@ -171,6 +172,7 @@ const GamePage = () => {
 
   const handleRestart = () => {
     // Reset States
+    setPlayerName("");
     setRound(1);
     setOrderQty("");
     setDemand(null);
@@ -181,6 +183,10 @@ const GamePage = () => {
     setGameOver(false);
     setSettingsConfirmed(false);
     getNewNormalVariables();
+  };
+
+  const handleSubmitScore = () => {
+    console.log("Placeholder: Score Submit");
   };
 
   useEffect(() => {
@@ -235,6 +241,7 @@ const GamePage = () => {
               endDemandAvg={endDemandAvg}
               endStandardDev={endStandardDev}
               onRestart={handleRestart}
+              onSubmitScore={handleSubmitScore}
             />
           )}
 

@@ -9,6 +9,7 @@ const GameOverScreen = ({
   endDemandAvg,
   endStandardDev,
   onRestart,
+  onSubmitScore,
 }) => (
   <div className="game-over">
     <div className="game-over-wholepartition">
@@ -46,6 +47,7 @@ const GameOverScreen = ({
 
     <div className="game-over-wholepartition">
       <button onClick={onRestart}>Play Again</button>
+      <button onClick={onSubmitScore}>Submit Score</button>
     </div>
   </div>
 );

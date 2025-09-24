@@ -15,7 +15,7 @@ const SettingsForm = ({
   onSubmit,
 }) => (
   <form onSubmit={onSubmit} className="settings-form">
-    <h2>Game Settings</h2>
+    <h2>Game Setup</h2>
     <label>
       Player Name:
       <input
@@ -35,7 +35,8 @@ const SettingsForm = ({
         required
       />
     </label>
-    <label>
+
+    {/* <label>
       Cost per unit:
       <input
         type="number"
@@ -54,7 +55,7 @@ const SettingsForm = ({
         min="1"
         required
       />
-    </label>
+    </label> */}
 
     <label>
       Demand distribution:
