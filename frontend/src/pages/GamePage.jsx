@@ -29,6 +29,7 @@ const GamePage = () => {
   const nAVG = randomiseInRange(MAX_AVG, MIN_AVG);
 
   // Settings state
+  const [playerName, setPlayerName] = useState("");
   const [maxRounds, setMaxRounds] = useState(5);
   const [demandType, setDemandType] = useState("Random (Uniform)");
   const [costPerUnit, setCostPerUnit] = useState(10);
@@ -196,11 +197,13 @@ const GamePage = () => {
 
       {!settingsConfirmed ? (
         <SettingsForm
+          playerName={playerName}
           costPerUnit={costPerUnit}
           sellingPrice={sellingPrice}
           maxRounds={maxRounds}
           roundLimit={ROUND_LIMIT}
           demandType={demandType}
+          setPlayerName={setPlayerName}
           setCostPerUnit={setCostPerUnit}
           setSellingPrice={setSellingPrice}
           setMaxRounds={setMaxRounds}
@@ -209,8 +212,11 @@ const GamePage = () => {
         />
       ) : (
         <>
+          <p>Player: {playerName}</p>
           <p>
-            Round {round} of {maxRounds}
+            <strong>
+              Round {round} of {maxRounds}
+            </strong>
           </p>
 
           {!gameOver ? (
@@ -242,6 +248,10 @@ const GamePage = () => {
           )}
 
           {history.length > 0 && <GameHistory history={history} />}
+
+          <button className="quit-button" onClick={handleRestart}>
+            Quit Game
+          </button>
         </>
       )}
     </div>

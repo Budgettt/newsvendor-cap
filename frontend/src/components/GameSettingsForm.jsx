@@ -1,11 +1,13 @@
 import "../styles/GamePage.css";
 
 const SettingsForm = ({
+  playerName,
   costPerUnit,
   sellingPrice,
   maxRounds,
   roundLimit,
   demandType,
+  setPlayerName,
   setCostPerUnit,
   setSellingPrice,
   setMaxRounds,
@@ -14,6 +16,14 @@ const SettingsForm = ({
 }) => (
   <form onSubmit={onSubmit} className="settings-form">
     <h2>Game Settings</h2>
+    <label>
+      Player Name:
+      <input
+        value={playerName}
+        onChange={(e) => setPlayerName(e.target.value)}
+        required
+      />
+    </label>
     <label>
       Number of rounds:
       <input
