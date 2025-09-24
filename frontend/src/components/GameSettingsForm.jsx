@@ -4,6 +4,7 @@ const SettingsForm = ({
   costPerUnit,
   sellingPrice,
   maxRounds,
+  roundLimit,
   demandType,
   setCostPerUnit,
   setSellingPrice,
@@ -20,6 +21,7 @@ const SettingsForm = ({
         value={maxRounds}
         onChange={(e) => setMaxRounds(Number(e.target.value))}
         min="1"
+        max={roundLimit}
         required
       />
     </label>

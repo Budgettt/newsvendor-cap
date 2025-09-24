@@ -1,11 +1,20 @@
 import "../styles/GamePage.css";
 
-const RoundResults = ({ round, demand, orderQty, profit }) => (
+const RoundResults = ({ demand, orderQty, surplus, profit }) => (
   <div className="round-results">
-    <h3>Round {round} Results</h3>
-    <p>Demand: {demand}</p>
-    <p>Sales: {Math.min(orderQty, demand)}</p>
-    <p>Profit: ${profit}</p>
+    <h3>Round Results</h3>
+    <p>
+      Demand: <strong>{demand}</strong>
+    </p>
+    <p>
+      Sales: <strong>{Math.min(orderQty, demand)}</strong>
+    </p>
+    <p>
+      Surplus: <strong>{surplus}</strong>
+    </p>
+    <p>
+      Profit: <strong>${profit}</strong>{" "}
+    </p>
   </div>
 );
 

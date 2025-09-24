@@ -8,6 +8,7 @@ import GameHistory from "../components/GameHistory";
 import GameOverScreen from "../components/GameOverScreen";
 
 // Game Balancing
+const ROUND_LIMIT = 20;
 // Random Uniform
 const MIN_DEMAND = 50;
 const MAX_DEMAND = 150;
@@ -43,11 +44,14 @@ const GamePage = () => {
   const [profit, setProfit] = useState(null);
   const [history, setHistory] = useState([]);
   const [gameOver, setGameOver] = useState(false);
+  const [surplus, setSurplus] = useState(null);
 
   // GameOver Stats States
   const [totalProfit, setTotalProfit] = useState(0);
   const [optimalProfit, setOptimalProfit] = useState(0);
   const [profitDifference, setProfitDifference] = useState("");
+  const [endDemandAvg, setEndDemandAvg] = useState(null);
+  const [endStandardDev, setEndStandardDev] = useState(null);
 
   const getRandomUniformDemand = () => {
     return (
@@ -80,6 +84,26 @@ const GamePage = () => {
     let percentDifference = (100 * difference) / optimalProfit;
     percentDifference = percentDifference.toFixed(2);
     setProfitDifference(percentDifference);
+  };
+
+  const calculateGameOverStats = () => {
+    let sumDemandAverage = 0;
+    let squaredDiffSum = 0;
+
+    for (let i = 0; i < history.length; i++) {
+      sumDemandAverage = sumDemandAverage + history[i].demand;
+    }
+    const demandAverage = sumDemandAverage / history.length;
+
+    for (let i = 0; i < history.length; i++) {
+      const diff = history[i].demand - demandAverage;
+      squaredDiffSum = squaredDiffSum + diff * diff;
+    }
+    const variance = squaredDiffSum / history.length;
+    const standardDev = Math.sqrt(variance);
+
+    setEndDemandAvg(demandAverage.toFixed(2));
+    setEndStandardDev(standardDev.toFixed(2));
   };
 
   const handleSettingsSubmit = (e) => {
@@ -125,6 +149,7 @@ const GamePage = () => {
       demand: currentDemand,
       unitsSold,
       profit: roundProfit,
+      optimalProfit: roundOptimalProfit,
       lostSales,
       surplus,
     };
@@ -134,7 +159,7 @@ const GamePage = () => {
     setTotalProfit(newTotalProfit);
     setDemand(currentDemand);
     setProfit(roundProfit);
-    setOrderQty("");
+    setSurplus(surplus);
 
     if (round >= maxRounds) {
       setGameOver(true);
@@ -144,6 +169,7 @@ const GamePage = () => {
   };
 
   const handleRestart = () => {
+    // Reset States
     setRound(1);
     setOrderQty("");
     setDemand(null);
@@ -157,19 +183,23 @@ const GamePage = () => {
   };
 
   useEffect(() => {
-    // Update values when profit changes
     calculateProfitDifference();
   }, [profit]);
 
+  useEffect(() => {
+    calculateGameOverStats();
+  }, [history]);
+
   return (
     <div className="game-container">
-      <h1>Newsvendor Game</h1>
+      <h1>📰 Newsvendor Game</h1>
 
       {!settingsConfirmed ? (
         <SettingsForm
           costPerUnit={costPerUnit}
           sellingPrice={sellingPrice}
           maxRounds={maxRounds}
+          roundLimit={ROUND_LIMIT}
           demandType={demandType}
           setCostPerUnit={setCostPerUnit}
           setSellingPrice={setSellingPrice}
@@ -196,15 +226,17 @@ const GamePage = () => {
               totalProfit={totalProfit}
               optimalProfit={optimalProfit}
               profitDifference={profitDifference}
+              endDemandAvg={endDemandAvg}
+              endStandardDev={endStandardDev}
               onRestart={handleRestart}
             />
           )}
 
           {demand !== null && profit !== null && !gameOver && (
             <RoundResults
-              totalRounds={round}
               demand={demand}
               orderQty={orderQty}
+              surplus={surplus}
               profit={profit}
             />
           )}

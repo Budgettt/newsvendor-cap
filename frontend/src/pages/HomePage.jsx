@@ -28,15 +28,17 @@ const HomePage = () => {
           under stochastic demand.
         </p>
         <p>
-          The problem in its simplest form describes a decision-maker (e.g.
-          newsvendor) who aims to maximise their profits by decide on an order
-          quantity on a perishable product (newspapers) for each period before
-          customer demand is realised.
+          It describes a decision-maker (e.g. newsvendor) who aims to maximise
+          their profits by decide on an order quantity on a perishable product
+          (e.g. newspapers) for each period before customer demand is realised.
+          During the end of each selling period, the decision-maker incurs an
+          "overage cost" for each leftover unsold unit of product and incurs an
+          "underage cost" each unsatisfied unit of demand.
         </p>
       </section>
 
       <section className="homepage-leaderboard">
-        <h2>Leaderboard Preview</h2>
+        <h2>Leaderboard Preview (Placeholder)</h2>
         <table>
           <thead>
             <tr>
@@ -69,9 +71,7 @@ const HomePage = () => {
       </section>
 
       <footer className="homepage-footer">
-        <p>
-          © {new Date().getFullYear()} Newsvendor Game. All rights reserved.
-        </p>
+        <p>📰 Newsvendor Game 📰</p>
       </footer>
     </div>
   );

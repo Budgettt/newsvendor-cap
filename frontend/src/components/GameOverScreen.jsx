@@ -6,26 +6,47 @@ const GameOverScreen = ({
   totalProfit,
   optimalProfit,
   profitDifference,
+  endDemandAvg,
+  endStandardDev,
   onRestart,
 }) => (
   <div className="game-over">
-    <h2>Game Over</h2>
-    <p>
-      Demand Type: <strong>{demandType}</strong>
-    </p>
-    <p>
-      Total rounds: <strong>{totalRounds}</strong>
-    </p>
-    <p>
-      Your total profit: <strong>${totalProfit}</strong>
-    </p>
-    <p>
-      Optimal profit: <strong>${optimalProfit}</strong>
-    </p>
-    <p>
-      Difference: <strong>{profitDifference}%</strong>
-    </p>
-    <button onClick={onRestart}>Play Again</button>
+    <div className="game-over-wholepartition">
+      <h2>Game Over!</h2>
+    </div>
+
+    <div className="game-over-halfpartition">
+      <h3>Summary:</h3>
+      <p>
+        Total rounds: <strong>{totalRounds}</strong>
+      </p>
+      <p>
+        Your total profit: <strong>${totalProfit}</strong>
+      </p>
+      <p>
+        Optimal profit: <strong>${optimalProfit}</strong>
+      </p>
+      <p>
+        Difference: <strong>{profitDifference}%</strong>
+      </p>
+    </div>
+
+    <div className="game-over-halfpartition">
+      <h3>Demand Stats:</h3>
+      <p>
+        Type: <strong>{demandType}</strong>
+      </p>
+      <p>
+        Average: <strong>{endDemandAvg}</strong>
+      </p>
+      <p>
+        Standard Deviation: <strong>{endStandardDev}</strong>
+      </p>
+    </div>
+
+    <div className="game-over-wholepartition">
+      <button onClick={onRestart}>Play Again</button>
+    </div>
   </div>
 );
 
