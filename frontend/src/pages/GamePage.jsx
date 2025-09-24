@@ -7,14 +7,25 @@ import RoundResults from "../components/GameRoundResults";
 import GameHistory from "../components/GameHistory";
 import GameOverScreen from "../components/GameOverScreen";
 
+// Game Balancing
+// Random Uniform
+const MIN_DEMAND = 50;
+const MAX_DEMAND = 150;
+// Random Normal
+const MIN_STD = 10;
+const MAX_STD = 40;
+const MIN_AVG = 75;
+const MAX_AVG = 125;
+
+const randomiseInRange = (max, min) => {
+  const x = Math.random() * (max - min) + min;
+  return x;
+};
+
 const GamePage = () => {
-  // Set Range of generated values
-  // Random Uniform
-  const MIN_DEMAND = 50;
-  const MAX_DEMAND = 150;
-  // Random Normal
-  const STD = 15;
-  const AVG = 100;
+  // Initial Game Variables setup
+  const nSTD = randomiseInRange(MAX_STD, MIN_STD);
+  const nAVG = randomiseInRange(MAX_AVG, MIN_AVG);
 
   // Settings state
   const [maxRounds, setMaxRounds] = useState(5);
@@ -22,6 +33,8 @@ const GamePage = () => {
   const [costPerUnit, setCostPerUnit] = useState(10);
   const [sellingPrice, setSellingPrice] = useState(20);
   const [settingsConfirmed, setSettingsConfirmed] = useState(false);
+  const [normalSTD, setNormalSTD] = useState(nSTD);
+  const [normalAVG, setNormalAVG] = useState(nAVG);
 
   // Table states
   const [round, setRound] = useState(1);
@@ -50,9 +63,16 @@ const GamePage = () => {
     let z = Math.sqrt(-2.0 * Math.log(x)) * Math.cos(2.0 * Math.PI * y);
 
     // Shift value to match avg and std
-    const demand = Math.round(z * STD + AVG);
+    const demand = Math.round(z * normalSTD + normalAVG);
 
     return demand;
+  };
+
+  const getNewNormalVariables = () => {
+    const nSTD = randomiseInRange(MAX_STD, MIN_STD);
+    const nAVG = randomiseInRange(MAX_AVG, MIN_AVG);
+    setNormalSTD(nSTD);
+    setNormalAVG(nAVG);
   };
 
   const calculateProfitDifference = () => {
@@ -86,12 +106,9 @@ const GamePage = () => {
     const cost = qty * costPerUnit;
     const roundProfit = revenue - cost;
     const newTotalProfit = totalProfit + roundProfit;
-    const roundOptimalProfit = currentDemand * costPerUnit;
+    const roundOptimalProfit = currentDemand * (sellingPrice - costPerUnit);
     const newOptimalProfit = optimalProfit + roundOptimalProfit;
 
-    console.log(
-      `roundOptimal: ${roundOptimalProfit}, newopti: ${newOptimalProfit}`
-    );
     let lostSales = 0;
     let surplus = 0;
 
@@ -136,6 +153,7 @@ const GamePage = () => {
     setOptimalProfit(0);
     setGameOver(false);
     setSettingsConfirmed(false);
+    getNewNormalVariables();
   };
 
   useEffect(() => {

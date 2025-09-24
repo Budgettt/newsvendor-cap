@@ -93,12 +93,12 @@ h1 {
 }
 
 .game-over button {
-  background-color: #6c757d;
+  background-color: #007bff;
   margin-top: 1rem;
 }
 
 .game-over button:hover {
-  background-color: #5a6268;
+  background-color: #2c92ff;
 }
 
 /* Result Cards */
