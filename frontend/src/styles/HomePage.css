@@ -2,7 +2,7 @@
   font-family: "Segoe UI", sans-serif;
   color: #333;
   padding: 2rem;
-  max-width: 960px;
+  max-width: 1000px;
   margin: auto;
 }
 
@@ -33,17 +33,26 @@
   background-color: #007bff;
   color: white;
 }
+.primary-btn:hover {
+  background-color: #2c92ff;
+}
 
 .secondary-btn {
   background-color: #6c757d;
   color: white;
 }
+.secondary-btn:hover {
+  background-color: #838d96;
+}
 
 .tertiary-btn {
-  background-color: #17a2b8;
+  background-color: #007bff;
   color: white;
   margin-top: 1rem;
   display: inline-block;
+}
+.tertiary-btn:hover {
+  background-color: #2c92ff;
 }
 
 .homepage-features {

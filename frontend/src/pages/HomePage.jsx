@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/HomePage.css";
 
@@ -24,9 +23,15 @@ const HomePage = () => {
       <section className="homepage-features">
         <h2>What is the Newsvendor Problem?</h2>
         <p>
-          The Newsvendor Problem is a classic operations research problem that
-          focuses on finding the optimal inventory level to maximize profit or
-          minimize cost under uncertain demand.
+          The newsvendor problem is a supply chain management problem dealing
+          with inventory management to determine the optimal order quantity
+          under stochastic demand.
+        </p>
+        <p>
+          The problem in its simplest form describes a decision-maker (e.g.
+          newsvendor) who aims to maximise their profits by decide on an order
+          quantity on a perishable product (newspapers) for each period before
+          customer demand is realised.
         </p>
       </section>
 
