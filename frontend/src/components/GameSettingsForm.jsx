@@ -51,8 +51,8 @@ const SettingsForm = ({
         onChange={(e) => setDemandType(e.target.value)}
         required
       >
-        <option value="random">Random (Uniform)</option>
-        <option value="normal">Normal Distribution</option>
+        <option value="Random (Uniform)">Random (Uniform)</option>
+        <option value="Normal Distribution">Normal Distribution</option>
       </select>
     </label>
 

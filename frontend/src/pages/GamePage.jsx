@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/GamePage.css";
 
 import SettingsForm from "../components/GameSettingsForm";
@@ -13,25 +13,28 @@ const GamePage = () => {
   const MIN_DEMAND = 50;
   const MAX_DEMAND = 150;
   // Random Normal
-  const MIN_STD = 0.5;
-  const MAX_STD = 5.0;
-  const MIN_AVG = 50;
-  const MAX_AVG = 150;
+  const STD = 15;
+  const AVG = 100;
 
   // Settings state
   const [maxRounds, setMaxRounds] = useState(5);
-  const [demandType, setDemandType] = useState("random");
+  const [demandType, setDemandType] = useState("Random (Uniform)");
   const [costPerUnit, setCostPerUnit] = useState(10);
   const [sellingPrice, setSellingPrice] = useState(20);
   const [settingsConfirmed, setSettingsConfirmed] = useState(false);
 
-  // Game state
+  // Table states
   const [round, setRound] = useState(1);
   const [orderQty, setOrderQty] = useState("");
   const [demand, setDemand] = useState(null);
   const [profit, setProfit] = useState(null);
   const [history, setHistory] = useState([]);
   const [gameOver, setGameOver] = useState(false);
+
+  // GameOver Stats States
+  const [totalProfit, setTotalProfit] = useState(0);
+  const [optimalProfit, setOptimalProfit] = useState(0);
+  const [profitDifference, setProfitDifference] = useState("");
 
   const getRandomUniformDemand = () => {
     return (
@@ -47,12 +50,16 @@ const GamePage = () => {
     let z = Math.sqrt(-2.0 * Math.log(x)) * Math.cos(2.0 * Math.PI * y);
 
     // Shift value to match avg and std
-    const avg = Math.random() * (MAX_AVG - MIN_AVG) + 1;
-    const std = Math.random() * (MAX_STD - MIN_STD);
-    const demand = Math.round(z * std + avg);
+    const demand = Math.round(z * STD + AVG);
 
-    console.log(`avg: ${avg}, std: ${std}, demand: ${demand}`);
     return demand;
+  };
+
+  const calculateProfitDifference = () => {
+    let difference = optimalProfit - totalProfit;
+    let percentDifference = (100 * difference) / optimalProfit;
+    percentDifference = percentDifference.toFixed(2);
+    setProfitDifference(percentDifference);
   };
 
   const handleSettingsSubmit = (e) => {
@@ -67,16 +74,24 @@ const GamePage = () => {
 
     // Determine Demand based on type
     let currentDemand = 0;
-    if (demandType === "random") {
+    if (demandType === "Random (Uniform)") {
       currentDemand = getRandomUniformDemand();
-    } else if (demandType === "normal") {
+    } else if (demandType === "Normal Distribution") {
       currentDemand = getRandomNormalDemand();
     }
 
+    // Calculate Variables
     const unitsSold = Math.min(qty, currentDemand);
     const revenue = unitsSold * sellingPrice;
     const cost = qty * costPerUnit;
     const roundProfit = revenue - cost;
+    const newTotalProfit = totalProfit + roundProfit;
+    const roundOptimalProfit = currentDemand * costPerUnit;
+    const newOptimalProfit = optimalProfit + roundOptimalProfit;
+
+    console.log(
+      `roundOptimal: ${roundOptimalProfit}, newopti: ${newOptimalProfit}`
+    );
     let lostSales = 0;
     let surplus = 0;
 
@@ -86,6 +101,7 @@ const GamePage = () => {
       surplus = qty - currentDemand;
     }
 
+    // Create next table entry
     const newEntry = {
       round,
       orderQty: qty,
@@ -97,6 +113,8 @@ const GamePage = () => {
     };
 
     setHistory([...history, newEntry]);
+    setOptimalProfit(newOptimalProfit);
+    setTotalProfit(newTotalProfit);
     setDemand(currentDemand);
     setProfit(roundProfit);
     setOrderQty("");
@@ -108,18 +126,22 @@ const GamePage = () => {
     }
   };
 
-  const totalProfit =
-    history.reduce((sum, r) => sum + r.profit, 0) + (profit || 0);
-
   const handleRestart = () => {
     setRound(1);
     setOrderQty("");
     setDemand(null);
     setProfit(null);
     setHistory([]);
+    setTotalProfit(0);
+    setOptimalProfit(0);
     setGameOver(false);
     setSettingsConfirmed(false);
   };
+
+  useEffect(() => {
+    // Update values when profit changes
+    calculateProfitDifference();
+  }, [profit]);
 
   return (
     <div className="game-container">
@@ -151,9 +173,11 @@ const GamePage = () => {
             />
           ) : (
             <GameOverScreen
+              demandType={demandType}
               totalRounds={maxRounds}
               totalProfit={totalProfit}
-              demandType={demandType}
+              optimalProfit={optimalProfit}
+              profitDifference={profitDifference}
               onRestart={handleRestart}
             />
           )}
