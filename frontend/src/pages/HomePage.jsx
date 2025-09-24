@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import "../styles/HomePage.css";
+import HomeLeaderboard from "../components/HomeLeaderboard";
+import HomeInfo from "../components/HomeInfo";
 
 const HomePage = () => {
   return (
@@ -20,54 +22,12 @@ const HomePage = () => {
         </div>
       </header>
 
-      <section className="homepage-features">
-        <h2>What is the Newsvendor Problem?</h2>
-        <p>
-          The newsvendor problem is a supply chain management problem dealing
-          with inventory management to determine the optimal order quantity
-          under stochastic demand.
-        </p>
-        <p>
-          It describes a decision-maker (e.g. newsvendor) who aims to maximise
-          their profits by decide on an order quantity on a perishable product
-          (e.g. newspapers) for each period before customer demand is realised.
-          During the end of each selling period, the decision-maker incurs an
-          "overage cost" for each leftover unsold unit of product and incurs an
-          "underage cost" each unsatisfied unit of demand.
-        </p>
+      <section className="homepage-info">
+        <HomeInfo />
       </section>
 
       <section className="homepage-leaderboard">
-        <h2>Leaderboard Preview (Placeholder)</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Player</th>
-              <th>Score</th>
-              <th>Rounds Played</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Alice</td>
-              <td>920</td>
-              <td>5</td>
-            </tr>
-            <tr>
-              <td>Bob</td>
-              <td>870</td>
-              <td>6</td>
-            </tr>
-            <tr>
-              <td>Charlie</td>
-              <td>860</td>
-              <td>4</td>
-            </tr>
-          </tbody>
-        </table>
-        <Link to="/leaderboard" className="btn tertiary-btn">
-          View Full Leaderboard
-        </Link>
+        <HomeLeaderboard />
       </section>
 
       <footer className="homepage-footer">
