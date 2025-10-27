@@ -6,6 +6,7 @@ const SettingsForm = ({
   sellingPrice,
   maxRounds,
   roundLimit,
+  roundMin,
   demandType,
   setPlayerName,
   setCostPerUnit,
@@ -16,26 +17,21 @@ const SettingsForm = ({
 }) => (
   <form onSubmit={onSubmit} className="settings-form">
     <h2>Game Setup</h2>
-    <label>
-      Player Name:
-      <input
-        value={playerName}
-        onChange={(e) => setPlayerName(e.target.value)}
-        required
-      />
-    </label>
-    <label>
-      Number of rounds:
-      <input
-        type="number"
-        value={maxRounds}
-        onChange={(e) => setMaxRounds(Number(e.target.value))}
-        min="1"
-        max={roundLimit}
-        required
-      />
-    </label>
-
+    <label>Player Name:</label>
+    <input
+      value={playerName}
+      onChange={(e) => setPlayerName(e.target.value)}
+      required
+    />
+    <label>Number of rounds: </label>
+    <input
+      type="number"
+      value={maxRounds}
+      onChange={(e) => setMaxRounds(Number(e.target.value))}
+      min={roundMin}
+      max={roundLimit}
+      required
+    />
     {/* <label>
       Cost per unit:
       <input
@@ -56,21 +52,17 @@ const SettingsForm = ({
         required
       />
     </label> */}
-
-    <label>
-      Demand distribution:
-      <select
-        value={demandType}
-        onChange={(e) => setDemandType(e.target.value)}
-        required
-      >
-        <option value="Random (Uniform)">Random (Uniform)</option>
-        <option value="(Truncated) Normal Distribution">
-          Normal Distribution (Truncated)
-        </option>
-      </select>
-    </label>
-
+    <label>Demand distribution:</label>
+    <select
+      value={demandType}
+      onChange={(e) => setDemandType(e.target.value)}
+      required
+    >
+      <option value="Random (Uniform)">Random (Uniform)</option>
+      <option value="(Truncated) Normal Distribution">
+        Normal Distribution (Truncated)
+      </option>
+    </select>
     <button type="submit">Start Game</button>
   </form>
 );

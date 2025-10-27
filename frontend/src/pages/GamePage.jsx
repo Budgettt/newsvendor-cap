@@ -13,6 +13,7 @@ import GameStats from "../components/GameStats";
 const UNIT_COST = 10;
 const UNIT_SELLING_PRICE = 20;
 const ROUND_LIMIT = 20;
+const ROUND_MIN = 5;
 // Random Uniform
 const MIN_DEMAND = 50;
 const MAX_DEMAND = 150;
@@ -226,6 +227,7 @@ const GamePage = () => {
           sellingPrice={sellingPrice}
           maxRounds={maxRounds}
           roundLimit={ROUND_LIMIT}
+          roundMin={ROUND_MIN}
           demandType={demandType}
           setPlayerName={setPlayerName}
           setCostPerUnit={setCostPerUnit}
