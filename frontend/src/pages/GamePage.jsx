@@ -6,17 +6,23 @@ import GameForm from "../components/GameForm";
 import RoundResults from "../components/GameRoundResults";
 import GameHistory from "../components/GameHistory";
 import GameOverScreen from "../components/GameOverScreen";
+import GameHelp from "../components/GameHelp";
 
 // Game Balancing
+const UNIT_COST = 10;
+const UNIT_SELLING_PRICE = 20;
 const ROUND_LIMIT = 20;
 // Random Uniform
 const MIN_DEMAND = 50;
 const MAX_DEMAND = 150;
 // Random Normal
 const MIN_STD = 10;
-const MAX_STD = 40;
-const MIN_AVG = 75;
-const MAX_AVG = 125;
+const MAX_STD = 50;
+const MIN_AVG = 100;
+const MAX_AVG = 150;
+// mean +- 2 std // 95% CI
+// Min demand = AVG - 2 * STD
+// Max demand = AVG + 2 * STD
 
 const randomiseInRange = (max, min) => {
   const x = Math.random() * (max - min) + min;
@@ -27,13 +33,16 @@ const GamePage = () => {
   // Initial Game Variables setup
   const nSTD = randomiseInRange(MAX_STD, MIN_STD);
   const nAVG = randomiseInRange(MAX_AVG, MIN_AVG);
+  // Min/Max Normal Demand to 95% C.I
+  const minNormalDemand = nAVG - 2 * nSTD;
+  const maxNormalDemand = nAVG + 2 * nSTD;
 
   // Settings state
   const [playerName, setPlayerName] = useState("");
   const [maxRounds, setMaxRounds] = useState(5);
   const [demandType, setDemandType] = useState("Random (Uniform)");
-  const [costPerUnit, setCostPerUnit] = useState(10);
-  const [sellingPrice, setSellingPrice] = useState(20);
+  const [costPerUnit, setCostPerUnit] = useState(UNIT_COST);
+  const [sellingPrice, setSellingPrice] = useState(UNIT_SELLING_PRICE);
   const [settingsConfirmed, setSettingsConfirmed] = useState(false);
   const [normalSTD, setNormalSTD] = useState(nSTD);
   const [normalAVG, setNormalAVG] = useState(nAVG);
@@ -69,6 +78,14 @@ const GamePage = () => {
 
     // Shift value to match avg and std
     const demand = Math.round(z * normalSTD + normalAVG);
+
+    // Truncated demand to prevent negatives
+    if (demand < minNormalDemand) {
+      demand = minNormalDemand;
+    }
+    if (demand > maxNormalDemand) {
+      demand = maxNormalDemand;
+    }
 
     return demand;
   };
@@ -218,13 +235,13 @@ const GamePage = () => {
         />
       ) : (
         <>
+          <GameHelp />
           <p>Player: {playerName}</p>
           <p>
             <strong>
               Round {round} of {maxRounds}
             </strong>
           </p>
-
           {!gameOver ? (
             <GameForm
               orderQty={orderQty}
@@ -244,7 +261,6 @@ const GamePage = () => {
               onSubmitScore={handleSubmitScore}
             />
           )}
-
           {demand !== null && profit !== null && !gameOver && (
             <RoundResults
               demand={demand}
@@ -253,9 +269,7 @@ const GamePage = () => {
               profit={profit}
             />
           )}
-
           {history.length > 0 && <GameHistory history={history} />}
-
           <button className="quit-button" onClick={handleRestart}>
             Quit Game
           </button>
