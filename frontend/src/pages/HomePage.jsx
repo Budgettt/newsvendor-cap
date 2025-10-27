@@ -31,7 +31,7 @@ const HomePage = () => {
       </section>
 
       <footer className="homepage-footer">
-        <p>📰 Newsvendor Game 📰</p>
+        <p>📰 Newsvendor Game</p>
       </footer>
     </div>
   );

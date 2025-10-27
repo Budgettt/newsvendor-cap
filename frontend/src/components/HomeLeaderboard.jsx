@@ -7,26 +7,30 @@ const HomeLeaderboard = ({}) => (
     <table>
       <thead>
         <tr>
+          <th>Rank</th>
           <th>Player</th>
-          <th>Score</th>
-          <th>Rounds Played</th>
+          <th>Profit Difference</th>
+          <th>No# of Rounds</th>
         </tr>
       </thead>
       <tbody>
         <tr>
+          <td>1</td>
           <td>Alice</td>
-          <td>920</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td>Bob</td>
-          <td>870</td>
+          <td>4.3%</td>
           <td>6</td>
         </tr>
         <tr>
+          <td>2</td>
+          <td>Bob</td>
+          <td>5.6%</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>3</td>
           <td>Charlie</td>
-          <td>860</td>
-          <td>4</td>
+          <td>7.9%</td>
+          <td>5</td>
         </tr>
       </tbody>
     </table>

@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import CreateAccountPage from "./pages/CreateAccountPage";
 import GamePage from "./pages/GamePage";
 import Navbar from "./components/Navbar";
+import AboutPage from "./pages/AboutPage";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/game" element={<GamePage />} />
+          <Route path="/about" element={<AboutPage />} />
 
           <Route path="/createAccount" element={<CreateAccountPage />} />
         </Routes>
