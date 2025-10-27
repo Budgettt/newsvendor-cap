@@ -33,7 +33,7 @@ const GameOverScreen = ({
     </div>
 
     <div className="game-over-halfpartition">
-      <h3>Demand Stats:</h3>
+      <h3>Demand Statistics:</h3>
       <p>
         Type: <strong>{demandType}</strong>
       </p>

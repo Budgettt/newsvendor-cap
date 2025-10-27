@@ -65,7 +65,9 @@ const SettingsForm = ({
         required
       >
         <option value="Random (Uniform)">Random (Uniform)</option>
-        <option value="Normal Distribution">Normal Distribution</option>
+        <option value="(Truncated) Normal Distribution">
+          Normal Distribution (Truncated)
+        </option>
       </select>
     </label>
 

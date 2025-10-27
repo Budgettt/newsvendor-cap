@@ -7,6 +7,7 @@ import RoundResults from "../components/GameRoundResults";
 import GameHistory from "../components/GameHistory";
 import GameOverScreen from "../components/GameOverScreen";
 import GameHelp from "../components/GameHelp";
+import GameStats from "../components/GameStats";
 
 // Game Balancing
 const UNIT_COST = 10;
@@ -138,7 +139,7 @@ const GamePage = () => {
     let currentDemand = 0;
     if (demandType === "Random (Uniform)") {
       currentDemand = getRandomUniformDemand();
-    } else if (demandType === "Normal Distribution") {
+    } else if (demandType === "(Truncated) Normal Distribution") {
       currentDemand = getRandomNormalDemand();
     }
 
@@ -236,12 +237,13 @@ const GamePage = () => {
       ) : (
         <>
           <GameHelp />
-          <p>Player: {playerName}</p>
+          <p>Player Name: {playerName}</p>
           <p>
             <strong>
               Round {round} of {maxRounds}
             </strong>
           </p>
+
           {!gameOver ? (
             <GameForm
               orderQty={orderQty}
@@ -261,6 +263,7 @@ const GamePage = () => {
               onSubmitScore={handleSubmitScore}
             />
           )}
+
           {demand !== null && profit !== null && !gameOver && (
             <RoundResults
               demand={demand}
@@ -269,6 +272,18 @@ const GamePage = () => {
               profit={profit}
             />
           )}
+
+          {!gameOver ? (
+            <GameStats
+              demandType={demandType}
+              totalProfit={totalProfit}
+              endDemandAvg={endDemandAvg}
+              endStandardDev={endStandardDev}
+            />
+          ) : (
+            <></>
+          )}
+
           {history.length > 0 && <GameHistory history={history} />}
           <button className="quit-button" onClick={handleRestart}>
             Quit Game

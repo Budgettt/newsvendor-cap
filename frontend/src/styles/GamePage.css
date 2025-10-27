@@ -101,6 +101,15 @@ h1 {
   transition: background-color 0.2s ease;
 }
 
+.button-tips {
+  border: none;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  width: fit-content;
+  font-weight: 600;
+  font-size: medium;
+}
+
 .game-form button {
   background-color: #007bff;
 }
@@ -197,7 +206,8 @@ h1 {
   }
 }
 
-.gamehelp-container {
+.gamehelp-container,
+.gamestats-container {
   background: #f8f9fa;
   border: 1px solid #dee2e6;
   padding: 1.5rem;
