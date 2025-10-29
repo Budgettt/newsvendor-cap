@@ -4,7 +4,6 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { connectMongoDB } from "./config/db.js";
 
-import testRoutes from "./routes/testRoute.js";
 import scoreRoutes from "./routes/scoreRoute.js";
 
 dotenv.config();
@@ -20,7 +19,6 @@ app.use(cors());
 app.use(cookieParser());
 
 // Routes
-app.use("/test", testRoutes);
 app.use("/score", scoreRoutes);
 
 // Start server
