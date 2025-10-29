@@ -5,6 +5,8 @@ import GamePage from "./pages/GamePage";
 import Navbar from "./components/Navbar";
 import AboutPage from "./pages/AboutPage";
 
+export const LOCALURL = `http://localhost:5001`; // Remove once hosted
+
 const App = () => {
   return (
     <>

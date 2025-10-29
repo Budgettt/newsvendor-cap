@@ -3,7 +3,9 @@ import schemas from "../models/schema.js";
 // Get all the scores
 export const getAllScores = async (_, res) => {
   try {
-    const scores = await schemas.Score.find({});
+    const scores = await schemas.Score.find({}).sort({
+      averageProfitDifference: "ascending",
+    });
     if (!scores) {
       res.status(404).json({ message: "Error: Failed to get all scores." });
       return;

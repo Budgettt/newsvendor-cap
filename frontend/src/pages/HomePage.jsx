@@ -2,9 +2,33 @@ import { Link } from "react-router-dom";
 import "../styles/HomePage.css";
 import HomeLeaderboard from "../components/HomeLeaderboard";
 import HomeInfo from "../components/HomeInfo";
+import { getAllScores } from "../api/scoreAPI";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
-  return (
+  const [isLoading, setIsLoading] = useState(true);
+  const [scoreData, setScoreData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+
+      const scores = await getAllScores();
+      setScoreData(scores);
+
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  return isLoading ? (
+    <>
+      <div className="homepage-container">
+        <h1>Loading...</h1>
+      </div>
+    </>
+  ) : (
     <div className="homepage-container">
       <header className="homepage-header">
         <h1>Newsvendor Simulation Game</h1>
@@ -27,7 +51,7 @@ const HomePage = () => {
       </section>
 
       <section className="homepage-leaderboard">
-        <HomeLeaderboard />
+        <HomeLeaderboard scores={scoreData} />
       </section>
 
       <footer className="homepage-footer">
