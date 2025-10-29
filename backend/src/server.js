@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { connectMongoDB } from "./config/db.js";
 
 import testRoutes from "./routes/testRoute.js";
+import scoreRoutes from "./routes/scoreRoute.js";
 
 dotenv.config();
 
@@ -20,13 +21,14 @@ app.use(cookieParser());
 
 // Routes
 app.use("/test", testRoutes);
+app.use("/score", scoreRoutes);
 
 // Start server
 connectMongoDB().then(() =>
-  app.listen(PORT, (err) => {
-    if (err) {
-      console.log("Error: ", err);
-      throw err;
+  app.listen(PORT, (error) => {
+    if (error) {
+      console.log("Error: ", error);
+      throw error;
     }
     console.log(`Server started on port: ${PORT}`);
   })
