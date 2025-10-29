@@ -15,8 +15,8 @@ const AboutPage = () => {
           uncertainty. Players take on the role of a newsvendor who must decide
           how many newspapers to order before demand is known, balancing the
           risks of overstocking and understocking. Through gameplay, players
-          gain insights into demand forecasting, cost optimization, and profit
-          maximization.
+          gain insights into demand forecasting, cost optimisation, and profit
+          maximisation.
         </p>
       </header>
 

@@ -10,6 +10,7 @@ const HomeLeaderboard = ({ scores }) => {
         <tr>
           <td key={i}>{i + 1}</td>
           <td>{score.playerName}</td>
+          <td>{score.demandType}</td>
           <td>{score.averageProfitDifference}%</td>
           <td>{score.totalRounds}</td>
         </tr>
@@ -25,6 +26,7 @@ const HomeLeaderboard = ({ scores }) => {
           <tr>
             <th>Rank</th>
             <th>Player</th>
+            <th>Demand Distribution</th>
             <th>Avg. Difference</th>
             <th>Rounds</th>
           </tr>
