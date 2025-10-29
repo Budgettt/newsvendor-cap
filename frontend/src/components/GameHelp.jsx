@@ -39,22 +39,21 @@ const GameHelp = () => {
             <>
               {" "}
               <p>
-                In the <strong>random uniform distribution</strong> scenario,
-                the minimum demand is <strong>50</strong> units and the maximum
-                demand is <strong>150</strong> units each week.
+                Under <strong>Random uniform distribution</strong>, the minimum
+                demand is <strong>50</strong> units and the maximum demand is{" "}
+                <strong>150</strong> units each week.
               </p>
               <p>
-                In the <strong>(Truncated) normal distribution</strong>{" "}
-                scenario, the minimum and maximum demand each week falls within
-                (
+                Under <strong>(Truncated) normal distribution</strong>, the
+                minimum and maximum demand each week falls within (
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
                   <mi>&#x3bc;</mi>
                   <mo>&#xb1;</mo>
                   <mn>2</mn>
                   <mi>&#x3c3;</mi>
                 </math>
-                ) of the final average (<mi>&#x3bc;</mi>) and standard deviation
-                (<mi>&#x3c3;</mi>).
+                ) where (<mi>&#x3bc;</mi>) is the final average and (
+                <mi>&#x3c3;</mi>) is the standard deviation.
               </p>
             </>
           )}
