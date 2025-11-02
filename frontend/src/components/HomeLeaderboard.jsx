@@ -1,11 +1,21 @@
+import { useEffect, useState } from "react";
 import "../styles/HomePage.css";
 import { Link } from "react-router";
+import {
+  getFirst10Scores,
+  getTopTenScoresWithSpecificNumberOfRounds,
+} from "../api/scoreAPI";
 
-const HomeLeaderboard = ({ scores }) => {
-  const render10Rows = () => {
-    const first10scores = scores.slice(0, 10);
+const HomeLeaderboard = ({ scores, setScoreData }) => {
+  const [scoreFilter, setScoreFilter] = useState("All");
 
-    return first10scores.map((score, i) => {
+  const [buttonActiveAll, setButtonActiveAll] = useState(true);
+  const [buttonActive5, setButtonActive5] = useState(false);
+  const [buttonActive10, setButtonActive10] = useState(false);
+  const [buttonActive20, setButtonActive20] = useState(false);
+
+  const renderRows = () => {
+    return scores.map((score, i) => {
       return (
         <tr>
           <td key={i}>{i + 1}</td>
@@ -18,9 +28,95 @@ const HomeLeaderboard = ({ scores }) => {
     });
   };
 
+  const resetButtonStates = () => {
+    setButtonActiveAll(false);
+    setButtonActive5(false);
+    setButtonActive10(false);
+    setButtonActive20(false);
+  };
+
+  const handleClickAllButton = () => {
+    resetButtonStates();
+    setButtonActiveAll(true);
+    setScoreFilter("All");
+  };
+
+  const handleClick5Button = () => {
+    resetButtonStates();
+    setButtonActive5(true);
+    setScoreFilter("5");
+  };
+
+  const handleClick10Button = () => {
+    resetButtonStates();
+    setButtonActive10(true);
+    setScoreFilter("10");
+  };
+
+  const handleClick20Button = () => {
+    resetButtonStates();
+    setButtonActive20(true);
+    setScoreFilter("20");
+  };
+
+  useEffect(() => {
+    const getScores = async () => {
+      if (scoreFilter === "All") {
+        const newscores = await getFirst10Scores();
+        setScoreData(newscores);
+      } else {
+        const newscores = await getTopTenScoresWithSpecificNumberOfRounds(
+          Number(scoreFilter)
+        );
+        setScoreData(newscores);
+      }
+    };
+    getScores();
+  }, [scoreFilter]);
+
   return (
     <div className="leaderboard-container">
       <h2>Leaderboard</h2>
+      <div className="leaderboard-buttons-box">
+        <div className="leaderboard-buttons-right">
+          <h4>Number of Rounds: </h4>
+        </div>
+        <div className="leaderboard-buttons-left">
+          <button
+            onClick={handleClickAllButton}
+            className={
+              buttonActiveAll ? "btn leaderboard-btn" : "btn leaderboard2-btn"
+            }
+          >
+            All
+          </button>
+          <button
+            onClick={handleClick5Button}
+            className={
+              buttonActive5 ? "btn leaderboard-btn" : "btn leaderboard2-btn"
+            }
+          >
+            5
+          </button>
+          <button
+            onClick={handleClick10Button}
+            className={
+              buttonActive10 ? "btn leaderboard-btn" : "btn leaderboard2-btn"
+            }
+          >
+            10
+          </button>
+          <button
+            onClick={handleClick20Button}
+            className={
+              buttonActive20 ? "btn leaderboard-btn" : "btn leaderboard2-btn"
+            }
+          >
+            20
+          </button>
+        </div>
+      </div>
+
       <table>
         <thead>
           <tr>
@@ -31,7 +127,7 @@ const HomeLeaderboard = ({ scores }) => {
             <th>Rounds</th>
           </tr>
         </thead>
-        <tbody>{render10Rows()}</tbody>
+        <tbody>{renderRows()}</tbody>
       </table>
       <Link to="/leaderboard" className="btn primary-btn">
         View Full Leaderboard

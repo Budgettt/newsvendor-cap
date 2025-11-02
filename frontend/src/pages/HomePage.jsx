@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../styles/HomePage.css";
 import HomeLeaderboard from "../components/HomeLeaderboard";
 import HomeInfo from "../components/HomeInfo";
-import { getAllScores } from "../api/scoreAPI";
+import { getFirst10Scores } from "../api/scoreAPI";
 import { useEffect, useState } from "react";
 
 const HomePage = () => {
@@ -13,7 +13,7 @@ const HomePage = () => {
     const fetchData = async () => {
       setIsLoading(true);
 
-      const scores = await getAllScores();
+      const scores = await getFirst10Scores();
       setScoreData(scores);
 
       setIsLoading(false);
@@ -51,7 +51,7 @@ const HomePage = () => {
       </section>
 
       <section className="homepage-leaderboard">
-        <HomeLeaderboard scores={scoreData} />
+        <HomeLeaderboard scores={scoreData} setScoreData={setScoreData} />
       </section>
 
       <footer className="homepage-footer">
