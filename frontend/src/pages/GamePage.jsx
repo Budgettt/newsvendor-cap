@@ -8,6 +8,7 @@ import GameHistory from "../components/GameHistory";
 import GameOverScreen from "../components/GameOverScreen";
 import GameHelp from "../components/GameHelp";
 import GameStats from "../components/GameStats";
+import { postSubmitScore } from "../api/scoreAPI";
 
 // Game Balancing
 const UNIT_COST = 10;
@@ -64,6 +65,7 @@ const GamePage = () => {
   const [profitDifference, setProfitDifference] = useState("");
   const [endDemandAvg, setEndDemandAvg] = useState(null);
   const [endStandardDev, setEndStandardDev] = useState(null);
+  const [submittedScore, setSubmittedScore] = useState(false);
 
   const getRandomUniformDemand = () => {
     return (
@@ -164,7 +166,6 @@ const GamePage = () => {
 
     // Create next table entry
     const newEntry = {
-      playerName,
       round,
       orderQty: qty,
       demand: currentDemand,
@@ -202,10 +203,32 @@ const GamePage = () => {
     setGameOver(false);
     setSettingsConfirmed(false);
     getNewNormalVariables();
+    setMaxRounds(5);
   };
 
-  const handleSubmitScore = () => {
-    console.log("Placeholder: Score Submit");
+  const handleSubmitScore = async () => {
+    if (submittedScore) {
+      return;
+    }
+
+    const temp = {
+      playerName: playerName,
+      totalRounds: maxRounds,
+      totalProfit: totalProfit,
+      optimalProfit: optimalProfit,
+      demandType: demandType,
+      averageProfitDifference: profitDifference,
+      endDemandAvg: endDemandAvg,
+      endStandardDev: endStandardDev,
+      history: history,
+    };
+
+    const score = await postSubmitScore(temp);
+    if (!score) {
+      console.log("Failed to Submit");
+    } else {
+      setSubmittedScore(true);
+    }
   };
 
   useEffect(() => {
@@ -263,6 +286,7 @@ const GamePage = () => {
               endStandardDev={endStandardDev}
               onRestart={handleRestart}
               onSubmitScore={handleSubmitScore}
+              submittedScore={submittedScore}
             />
           )}
 

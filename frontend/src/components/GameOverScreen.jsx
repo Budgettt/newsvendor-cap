@@ -10,6 +10,7 @@ const GameOverScreen = ({
   endStandardDev,
   onRestart,
   onSubmitScore,
+  submittedScore,
 }) => (
   <div className="game-over">
     <div className="game-over-wholepartition">
@@ -48,6 +49,7 @@ const GameOverScreen = ({
     <div className="game-over-wholepartition">
       <button onClick={onRestart}>Play Again</button>
       <button onClick={onSubmitScore}>Submit Score</button>
+      {submittedScore ? <h4>Score Submitted!</h4> : <></>}
     </div>
   </div>
 );

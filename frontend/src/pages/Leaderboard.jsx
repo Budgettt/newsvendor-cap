@@ -29,8 +29,8 @@ const Leaderboard = () => {
   ) : (
     <div className="homepage-container">
       <header className="homepage-header">
-        <h1>Leaderboard</h1>
-        <p>👑 Top 100 Scores 👑</p>
+        <h1>🏆 Leaderboard</h1>
+        <p> The Top 100 Scores </p>
       </header>
 
       <section className="homepage-leaderboard">

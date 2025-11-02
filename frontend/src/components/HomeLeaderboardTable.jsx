@@ -6,7 +6,7 @@ import {
   getTopTenScoresWithSpecificNumberOfRounds,
 } from "../api/scoreAPI";
 
-const HomeLeaderboard = ({ scores, setScoreData }) => {
+const HomeLeaderboardTable = ({ scores, setScoreData }) => {
   const [scoreFilter, setScoreFilter] = useState("All");
 
   const [buttonActiveAll, setButtonActiveAll] = useState(true);
@@ -136,4 +136,4 @@ const HomeLeaderboard = ({ scores, setScoreData }) => {
   );
 };
 
-export default HomeLeaderboard;
+export default HomeLeaderboardTable;

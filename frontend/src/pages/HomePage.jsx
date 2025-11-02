@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/HomePage.css";
-import HomeLeaderboard from "../components/HomeLeaderboard";
+import HomeLeaderboardTable from "../components/HomeLeaderboardTable";
 import HomeInfo from "../components/HomeInfo";
 import { getFirst10Scores } from "../api/scoreAPI";
 import { useEffect, useState } from "react";
@@ -51,7 +51,7 @@ const HomePage = () => {
       </section>
 
       <section className="homepage-leaderboard">
-        <HomeLeaderboard scores={scoreData} setScoreData={setScoreData} />
+        <HomeLeaderboardTable scores={scoreData} setScoreData={setScoreData} />
       </section>
 
       <footer className="homepage-footer">
