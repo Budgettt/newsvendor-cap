@@ -25,9 +25,32 @@ export const getFirst10Scores = async () => {
 };
 
 export const getTopTenScoresWithSpecificNumberOfRounds = async (rounds) => {
-  console.log(`api call: rounds = ${rounds}`);
   const scores = fetch(
     `${LOCALURL}/score/getTopTenScoresWithSpecificNumberOfRounds/${rounds}`
+  )
+    .then((res) => res.json())
+    .catch((error) => console.error(error));
+  if (!scores) {
+    console.error("Could not find any scores.");
+    return;
+  }
+  return scores;
+};
+
+export const getFirst100Scores = async () => {
+  const scores = fetch(`${LOCALURL}/score/getFirst100Scores`)
+    .then((res) => res.json())
+    .catch((error) => console.error(error));
+  if (!scores) {
+    console.error("Could not find any scores.");
+    return;
+  }
+  return scores;
+};
+
+export const getTopHundredScoresWithSpecificNumberOfRounds = async (rounds) => {
+  const scores = fetch(
+    `${LOCALURL}/score/getTopHundredScoresWithSpecificNumberOfRounds/${rounds}`
   )
     .then((res) => res.json())
     .catch((error) => console.error(error));

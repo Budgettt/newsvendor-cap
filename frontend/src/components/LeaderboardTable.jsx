@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import "../styles/HomePage.css";
 import { Link } from "react-router";
 import {
-  getFirst10Scores,
-  getTopTenScoresWithSpecificNumberOfRounds,
+  getAllScores,
+  getTopHundredScoresWithSpecificNumberOfRounds,
 } from "../api/scoreAPI";
 
-const HomeLeaderboard = ({ scores, setScoreData }) => {
+const LeaderboardTable = ({ scores, setScoreData }) => {
   const [scoreFilter, setScoreFilter] = useState("All");
 
   const [buttonActiveAll, setButtonActiveAll] = useState(true);
@@ -62,10 +62,10 @@ const HomeLeaderboard = ({ scores, setScoreData }) => {
   useEffect(() => {
     const getScores = async () => {
       if (scoreFilter === "All") {
-        const newscores = await getFirst10Scores();
+        const newscores = await getAllScores();
         setScoreData(newscores);
       } else {
-        const newscores = await getTopTenScoresWithSpecificNumberOfRounds(
+        const newscores = await getTopHundredScoresWithSpecificNumberOfRounds(
           Number(scoreFilter)
         );
         setScoreData(newscores);
@@ -129,11 +129,8 @@ const HomeLeaderboard = ({ scores, setScoreData }) => {
         </thead>
         <tbody>{renderRows()}</tbody>
       </table>
-      <Link to="/leaderboard" className="btn primary-btn">
-        View Expanded Leaderboard
-      </Link>
     </div>
   );
 };
 
-export default HomeLeaderboard;
+export default LeaderboardTable;

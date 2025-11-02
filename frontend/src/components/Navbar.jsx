@@ -15,6 +15,9 @@ const Navbar = () => {
           <Link to="/game">Play</Link>
         </li>
         <li className="navbar-options">
+          <Link to="/leaderboard">Leaderboard</Link>
+        </li>
+        <li className="navbar-options">
           <Link to="/about">About</Link>
         </li>
       </ul>

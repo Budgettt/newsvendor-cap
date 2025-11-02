@@ -4,6 +4,7 @@ import CreateAccountPage from "./pages/CreateAccountPage";
 import GamePage from "./pages/GamePage";
 import Navbar from "./components/Navbar";
 import AboutPage from "./pages/AboutPage";
+import Leaderboard from "./pages/Leaderboard";
 
 export const LOCALURL = `http://localhost:5001`; // Remove once hosted
 
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/game" element={<GamePage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
 
           <Route path="/createAccount" element={<CreateAccountPage />} />
         </Routes>
