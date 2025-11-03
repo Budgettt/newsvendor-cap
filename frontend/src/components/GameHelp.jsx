@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/GamePage.css";
 
-const GameHelp = () => {
+const GameHelp = ({ costPerUnit, sellingPrice }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenTips, setIsOpenTips] = useState(false);
 
@@ -17,11 +17,12 @@ const GameHelp = () => {
             You are in responsible for runnning a small store which sells weekly
             newspapers. Before each week (round) begins, you place a{" "}
             <strong>bulk order</strong> to your supplier for the latest
-            newspapers. These newspapers cost you <strong>$10</strong> per unit
-            to order. During the week you sell each newspaper at{" "}
-            <strong>$20</strong> per unit. Any <strong>unsold</strong>{" "}
-            newspapers at the end of the week are <strong>discarded</strong> as
-            they are outdated and cannot be sold.
+            newspapers. These newspapers cost you{" "}
+            <strong className="strong-red">${costPerUnit}</strong> per unit to
+            order. During the week you sell each newspaper at{" "}
+            <strong className="strong-green">${sellingPrice}</strong> per unit.
+            Any <strong>unsold</strong> newspapers at the end of the week are{" "}
+            <strong>discarded</strong> as they are outdated and cannot be sold.
           </p>
           <p>
             Without any historical data, the suggested ordering quantity for the

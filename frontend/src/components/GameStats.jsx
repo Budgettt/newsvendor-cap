@@ -10,9 +10,9 @@ const GameStats = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="gamehelp-container">
+    <div className="gamestats-container">
       <button className="button-tips" onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? "▼ Hide Ongoing Statistics" : "▶ Show Ongoing Statistics"}
+        {isOpen ? "▼ Ongoing Statistics" : "▶ Ongoing Statistics"}
       </button>
       {isOpen && (
         <>
@@ -26,9 +26,9 @@ const GameStats = ({
             <p>
               Standard Deviation: <strong>{endStandardDev}</strong>
             </p>
-            <p>
+            {/* <p>
               Total Profit: <strong>${totalProfit}</strong>
-            </p>
+            </p> */}
           </div>
         </>
       )}

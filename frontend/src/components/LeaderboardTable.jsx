@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "../styles/HomePage.css";
-import { Link } from "react-router";
 import {
   getAllScores,
   getTopHundredScoresWithSpecificNumberOfRounds,
@@ -76,7 +75,6 @@ const LeaderboardTable = ({ scores, setScoreData }) => {
 
   return (
     <div className="leaderboard-container">
-      <h2>Leaderboard</h2>
       <div className="leaderboard-buttons-box">
         <div className="leaderboard-buttons-right">
           <h4>Number of Rounds: </h4>

@@ -4,6 +4,7 @@ const GameForm = ({ orderQty, setOrderQty, onSubmit }) => (
   <form onSubmit={onSubmit} className="game-form">
     <label htmlFor="orderQty">How many units would you like to order?</label>
     <input
+      className="game-form-input"
       type="number"
       id="orderQty"
       value={orderQty}

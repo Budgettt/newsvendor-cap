@@ -9,10 +9,11 @@ import GameOverScreen from "../components/GameOverScreen";
 import GameHelp from "../components/GameHelp";
 import GameStats from "../components/GameStats";
 import { postSubmitScore } from "../api/scoreAPI";
+import GameMarketStats from "../components/GameMarketStats";
 
 // Game Balancing
 const UNIT_COST = 10;
-const UNIT_SELLING_PRICE = 20;
+const UNIT_SELLING_PRICE = 25;
 const ROUND_LIMIT = 20;
 const ROUND_MIN = 5;
 // Random Uniform
@@ -81,7 +82,7 @@ const GamePage = () => {
     let z = Math.sqrt(-2.0 * Math.log(x)) * Math.cos(2.0 * Math.PI * y);
 
     // Shift value to match avg and std
-    const demand = Math.round(z * normalSTD + normalAVG);
+    let demand = Math.round(z * normalSTD + normalAVG);
 
     // Truncated demand to prevent negatives
     if (demand < minNormalDemand) {
@@ -204,6 +205,7 @@ const GamePage = () => {
     setSettingsConfirmed(false);
     getNewNormalVariables();
     setMaxRounds(5);
+    setSubmittedScore(false);
   };
 
   const handleSubmitScore = async () => {
@@ -261,7 +263,7 @@ const GamePage = () => {
         />
       ) : (
         <>
-          <GameHelp />
+          <GameHelp sellingPrice={sellingPrice} costPerUnit={costPerUnit} />
           <p>Player Name: {playerName}</p>
           <p>
             <strong>
@@ -290,6 +292,14 @@ const GamePage = () => {
             />
           )}
 
+          {!gameOver && (
+            <GameMarketStats
+              costPerUnit={costPerUnit}
+              sellingPrice={sellingPrice}
+              totalProfit={totalProfit}
+            />
+          )}
+
           {demand !== null && profit !== null && !gameOver && (
             <RoundResults
               demand={demand}
@@ -299,15 +309,13 @@ const GamePage = () => {
             />
           )}
 
-          {!gameOver ? (
+          {demand !== null && profit !== null && !gameOver && (
             <GameStats
               demandType={demandType}
               totalProfit={totalProfit}
               endDemandAvg={endDemandAvg}
               endStandardDev={endStandardDev}
             />
-          ) : (
-            <></>
           )}
 
           {history.length > 0 && <GameHistory history={history} />}
