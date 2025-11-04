@@ -29,7 +29,7 @@ const GameOverScreen = ({
         Optimal profit: <strong>${optimalProfit}</strong>
       </p>
       <p>
-        Difference: <strong>{profitDifference}%</strong>
+        Avg. Difference: <strong>{profitDifference}%</strong>
       </p>
     </div>
 

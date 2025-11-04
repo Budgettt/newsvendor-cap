@@ -103,10 +103,25 @@ const GamePage = () => {
   };
 
   const calculateProfitDifference = () => {
-    let difference = optimalProfit - totalProfit;
-    let percentDifference = (100 * difference) / optimalProfit;
-    percentDifference = percentDifference.toFixed(2);
-    setProfitDifference(percentDifference);
+    if (!gameOver) {
+      return;
+    }
+    // let difference = optimalProfit - totalProfit;
+    // let percentDifference = (100 * difference) / optimalProfit;
+    // percentDifference = percentDifference.toFixed(2);
+    // setProfitDifference(percentDifference);
+
+    let roundProfitDifferenceSum = 0;
+    for (let i = 0; i < history.length; i++) {
+      roundProfitDifferenceSum =
+        roundProfitDifferenceSum + Number(history[i].profitDifference);
+    }
+    console.log(roundProfitDifferenceSum);
+    console.log(history.length);
+    const averagePercentDifference = (
+      roundProfitDifferenceSum / history.length
+    ).toFixed(2);
+    setProfitDifference(Number(averagePercentDifference));
   };
 
   const calculateGameOverStats = () => {
@@ -155,7 +170,9 @@ const GamePage = () => {
     const newTotalProfit = totalProfit + roundProfit;
     const roundOptimalProfit = currentDemand * (sellingPrice - costPerUnit);
     const newOptimalProfit = optimalProfit + roundOptimalProfit;
-
+    const roundProfitDifference =
+      (100 * (roundOptimalProfit - roundProfit)) / roundOptimalProfit;
+    const roundProfitDifference2Decimal = roundProfitDifference.toFixed(2);
     let lostSales = 0;
     let surplus = 0;
 
@@ -175,6 +192,8 @@ const GamePage = () => {
       optimalProfit: roundOptimalProfit,
       lostSales,
       surplus,
+      profitDifference: roundProfitDifference,
+      profitDifference2Decimal: roundProfitDifference2Decimal,
     };
 
     setHistory([...history, newEntry]);
@@ -235,7 +254,7 @@ const GamePage = () => {
 
   useEffect(() => {
     calculateProfitDifference();
-  }, [profit]);
+  }, [gameOver]);
 
   useEffect(() => {
     calculateGameOverStats();
@@ -263,7 +282,12 @@ const GamePage = () => {
         />
       ) : (
         <>
-          <GameHelp sellingPrice={sellingPrice} costPerUnit={costPerUnit} />
+          <GameHelp
+            sellingPrice={sellingPrice}
+            costPerUnit={costPerUnit}
+            minDemand={MIN_DEMAND}
+            maxDemand={MAX_DEMAND}
+          />
           <p>Player Name: {playerName}</p>
           <p>
             <strong>

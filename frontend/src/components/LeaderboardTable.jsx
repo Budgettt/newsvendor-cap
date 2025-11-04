@@ -20,8 +20,11 @@ const LeaderboardTable = ({ scores, setScoreData }) => {
           <td key={i}>{i + 1}</td>
           <td>{score.playerName}</td>
           <td>{score.demandType}</td>
-          <td>{score.averageProfitDifference}%</td>
+          <td>{score.endDemandAvg}</td>
+          <td>{score.endStandardDev}</td>
+          <td>${score.totalProfit}</td>
           <td>{score.totalRounds}</td>
+          <td>{score.averageProfitDifference}%</td>
         </tr>
       );
     });
@@ -121,8 +124,11 @@ const LeaderboardTable = ({ scores, setScoreData }) => {
             <th>Rank</th>
             <th>Player</th>
             <th>Demand Distribution</th>
-            <th>Avg. Difference</th>
+            <th>Demand Avg.</th>
+            <th>Demand Std Dev.</th>
+            <th>Profit</th>
             <th>Rounds</th>
+            <th>Avg. Difference</th>
           </tr>
         </thead>
         <tbody>{renderRows()}</tbody>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/GamePage.css";
 
-const GameHelp = ({ costPerUnit, sellingPrice }) => {
+const GameHelp = ({ costPerUnit, sellingPrice, minDemand, maxDemand }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenTips, setIsOpenTips] = useState(false);
 
@@ -41,8 +41,8 @@ const GameHelp = ({ costPerUnit, sellingPrice }) => {
               {" "}
               <p>
                 Under <strong>Random uniform distribution</strong>, the minimum
-                demand is <strong>50</strong> units and the maximum demand is{" "}
-                <strong>150</strong> units each week.
+                demand is <strong>{minDemand}</strong> units and the maximum
+                demand is <strong>{maxDemand}</strong> units each week.
               </p>
               <p>
                 Under <strong>(Truncated) normal distribution</strong>, the

@@ -11,6 +11,7 @@ const GameForm = ({ orderQty, setOrderQty, onSubmit }) => (
       onChange={(e) => setOrderQty(e.target.value)}
       min="0"
       required
+      max="500"
     />
     <button type="submit">Submit Order</button>
   </form>

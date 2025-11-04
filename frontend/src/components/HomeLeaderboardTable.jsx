@@ -21,8 +21,8 @@ const HomeLeaderboardTable = ({ scores, setScoreData }) => {
           <td key={i}>{i + 1}</td>
           <td>{score.playerName}</td>
           <td>{score.demandType}</td>
-          <td>{score.averageProfitDifference}%</td>
           <td>{score.totalRounds}</td>
+          <td>{score.averageProfitDifference}%</td>
         </tr>
       );
     });
@@ -76,7 +76,7 @@ const HomeLeaderboardTable = ({ scores, setScoreData }) => {
 
   return (
     <div className="leaderboard-container">
-      <h2>Leaderboard</h2>
+      <h2>Top 10 Scores</h2>
       <div className="leaderboard-buttons-box">
         <div className="leaderboard-buttons-right">
           <h4>Number of Rounds: </h4>
@@ -123,8 +123,8 @@ const HomeLeaderboardTable = ({ scores, setScoreData }) => {
             <th>Rank</th>
             <th>Player</th>
             <th>Demand Distribution</th>
-            <th>Avg. Difference</th>
             <th>Rounds</th>
+            <th>Avg. Difference</th>
           </tr>
         </thead>
         <tbody>{renderRows()}</tbody>
