@@ -86,10 +86,10 @@ const GamePage = () => {
 
     // Truncated demand to prevent negatives
     if (demand < minNormalDemand) {
-      demand = minNormalDemand;
+      demand = Math.round(minNormalDemand);
     }
     if (demand > maxNormalDemand) {
-      demand = maxNormalDemand;
+      demand = Math.round(maxNormalDemand);
     }
 
     return demand;
