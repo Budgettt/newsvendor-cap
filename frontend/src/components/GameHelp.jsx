@@ -26,9 +26,9 @@ const GameHelp = ({ costPerUnit, sellingPrice, minDemand, maxDemand }) => {
           </p>
           <p>
             Without any historical data, the suggested ordering quantity for the
-            first week is <strong>100 units.</strong> Your goal is the predict
-            the optimal ordering quantity each week to maximise profits for your
-            store.
+            first week is <strong className="strong-blue">100 units.</strong>{" "}
+            Your goal is the predict the optimal ordering quantity each week to
+            maximise profits for your store.
           </p>
           <button
             className="button-tips"

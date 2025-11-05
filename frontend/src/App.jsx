@@ -6,8 +6,6 @@ import Navbar from "./components/Navbar";
 import AboutPage from "./pages/AboutPage";
 import Leaderboard from "./pages/Leaderboard";
 
-export const LOCALURL = `http://localhost:5001`; // Remove once hosted
-
 const App = () => {
   return (
     <>

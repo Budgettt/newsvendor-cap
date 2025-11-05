@@ -96,3 +96,79 @@ export const postSubmitScore = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+export const getTopTenScoresSpecificRoundsAndType = async (req, res) => {
+  try {
+    let scores = [];
+    if (req.params.demandType === "All" && req.params.rounds !== "All") {
+      scores = await schemas.Score.find({
+        totalRounds: { $in: req.params.rounds },
+      })
+        .sort({
+          averageProfitDifference: "ascending",
+        })
+        .limit(10);
+    } else if (req.params.rounds === "All" && req.params.demandType !== "All") {
+      scores = await schemas.Score.find({
+        demandType: { $in: req.params.demandType },
+      })
+        .sort({
+          averageProfitDifference: "ascending",
+        })
+        .limit(10);
+    } else {
+      scores = await schemas.Score.find({
+        totalRounds: { $in: req.params.rounds },
+        demandType: { $in: req.params.demandType },
+      })
+        .sort({
+          averageProfitDifference: "ascending",
+        })
+        .limit(10);
+    }
+    if (!scores) {
+      res.status(404).json({ message: "Error: Failed to get all scores." });
+    }
+    res.status(200).json(scores);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+export const getTopHundredScoresSpecificRoundsAndType = async (req, res) => {
+  try {
+    let scores = [];
+    if (req.params.demandType === "All" && req.params.rounds !== "All") {
+      scores = await schemas.Score.find({
+        totalRounds: { $in: req.params.rounds },
+      })
+        .sort({
+          averageProfitDifference: "ascending",
+        })
+        .limit(100);
+    } else if (req.params.rounds === "All" && req.params.demandType !== "All") {
+      scores = await schemas.Score.find({
+        demandType: { $in: req.params.demandType },
+      })
+        .sort({
+          averageProfitDifference: "ascending",
+        })
+        .limit(100);
+    } else {
+      scores = await schemas.Score.find({
+        totalRounds: { $in: req.params.rounds },
+        demandType: { $in: req.params.demandType },
+      })
+        .sort({
+          averageProfitDifference: "ascending",
+        })
+        .limit(100);
+    }
+    if (!scores) {
+      res.status(404).json({ message: "Error: Failed to get all scores." });
+    }
+    res.status(200).json(scores);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};

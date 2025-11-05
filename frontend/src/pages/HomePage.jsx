@@ -32,10 +32,6 @@ const HomePage = () => {
     <div className="homepage-container">
       <header className="homepage-header">
         <h1>Newsvendor Simulation Game</h1>
-        <p>
-          Test your inventory decision-making skills in a fun and interactive
-          way.
-        </p>
         <div className="homepage-buttons">
           <Link to="/game" className="btn primary-btn">
             Start Game

@@ -1,8 +1,21 @@
 import "../styles/GamePage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const RoundResults = ({ demand, orderQty, surplus, profit }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [profitState, setProfitState] = useState(true);
+
+  useEffect(() => {
+    const checkProfit = () => {
+      if (profit > 0) {
+        setProfitState(true);
+      } else {
+        setProfitState(false);
+      }
+    };
+    checkProfit();
+  }, [profit]);
+
   return (
     <div className="round-results">
       <button className="button-tips" onClick={() => setIsOpen(!isOpen)}>
@@ -20,7 +33,10 @@ const RoundResults = ({ demand, orderQty, surplus, profit }) => {
             Surplus: <strong>{surplus}</strong>
           </p>
           <p>
-            Round Profit: <strong>${profit}</strong>{" "}
+            Round Profit:{" "}
+            <strong className={profitState ? "strong-green" : "strong-red"}>
+              ${profit}
+            </strong>{" "}
           </p>
         </>
       )}

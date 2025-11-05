@@ -1,10 +1,11 @@
-import { LOCALURL } from "../App";
-
 const ROOT_URL = window.location.origin; // Use once hosted
+const LOCALURL = "http://localhost:5001";
+
+const URL = LOCALURL;
 
 export const getAllScores = async () => {
   try {
-    const scores = fetch(`${LOCALURL}/score/getAllScores`)
+    const scores = fetch(`${URL}/score/getAllScores`)
       .then((res) => res.json())
       .catch((error) => console.error(error));
     if (!scores) {
@@ -20,7 +21,7 @@ export const getAllScores = async () => {
 
 export const getFirst10Scores = async () => {
   try {
-    const scores = fetch(`${LOCALURL}/score/getFirst10Scores`)
+    const scores = fetch(`${URL}/score/getFirst10Scores`)
       .then((res) => res.json())
       .catch((error) => console.error(error));
     if (!scores) {
@@ -37,7 +38,7 @@ export const getFirst10Scores = async () => {
 export const getTopTenScoresWithSpecificNumberOfRounds = async (rounds) => {
   try {
     const scores = fetch(
-      `${LOCALURL}/score/getTopTenScoresWithSpecificNumberOfRounds/${rounds}`
+      `${URL}/score/getTopTenScoresWithSpecificNumberOfRounds/${rounds}`
     )
       .then((res) => res.json())
       .catch((error) => console.error(error));
@@ -54,7 +55,7 @@ export const getTopTenScoresWithSpecificNumberOfRounds = async (rounds) => {
 
 export const getFirst100Scores = async () => {
   try {
-    const scores = fetch(`${LOCALURL}/score/getFirst100Scores`)
+    const scores = fetch(`${URL}/score/getFirst100Scores`)
       .then((res) => res.json())
       .catch((error) => console.error(error));
     if (!scores) {
@@ -71,7 +72,7 @@ export const getFirst100Scores = async () => {
 export const getTopHundredScoresWithSpecificNumberOfRounds = async (rounds) => {
   try {
     const scores = fetch(
-      `${LOCALURL}/score/getTopHundredScoresWithSpecificNumberOfRounds/${rounds}`
+      `${URL}/score/getTopHundredScoresWithSpecificNumberOfRounds/${rounds}`
     )
       .then((res) => res.json())
       .catch((error) => console.error(error));
@@ -86,9 +87,49 @@ export const getTopHundredScoresWithSpecificNumberOfRounds = async (rounds) => {
   }
 };
 
+export const getTopTenScoresSpecificRoundsAndType = async (
+  rounds,
+  demandType
+) => {
+  try {
+    const scores = await fetch(
+      `${URL}/score/getTopTenScoresSpecificRoundsAndType/${rounds}/${demandType}`
+    )
+      .then((res) => res.json())
+      .catch((error) => console.error(error));
+    if (!scores) {
+      console.error("Could not find any scores.");
+      return;
+    }
+    return scores;
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+};
+
+export const getTopHundredScoresSpecificRoundsAndType = async (
+  rounds,
+  demandType
+) => {
+  try {
+    const scores = await fetch(
+      `${URL}/score/getTopHundredScoresSpecificRoundsAndType/${rounds}/${demandType}`
+    )
+      .then((res) => res.json())
+      .catch((error) => console.error(error));
+    if (!scores) {
+      console.error("Could not find any scores.");
+      return;
+    }
+    return scores;
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+};
+
 export const postSubmitScore = async (data) => {
   try {
-    const res = await fetch(`${LOCALURL}/score/postSubmitScore`, {
+    const res = await fetch(`${URL}/score/postSubmitScore`, {
       method: "POST",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
@@ -98,7 +139,6 @@ export const postSubmitScore = async (data) => {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     const newScore = await res.json();
-    console.log(newScore);
     return newScore;
   } catch (error) {
     console.error("Error: ", error);

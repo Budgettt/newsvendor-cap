@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import "../styles/HomePage.css";
 import {
-  getAllScores,
-  getTopHundredScoresWithSpecificNumberOfRounds,
+  getFirst100Scores,
+  getTopHundredScoresSpecificRoundsAndType,
 } from "../api/scoreAPI";
 
 const LeaderboardTable = ({ scores, setScoreData }) => {
-  const [scoreFilter, setScoreFilter] = useState("All");
+  const [roundFilter, setRoundFilter] = useState("All");
+  const [demandTypeFilter, setDemandTypeFilter] = useState("All");
 
-  const [buttonActiveAll, setButtonActiveAll] = useState(true);
+  const [buttonActiveAllRounds, setButtonActiveAllRounds] = useState(true);
   const [buttonActive5, setButtonActive5] = useState(false);
   const [buttonActive10, setButtonActive10] = useState(false);
   const [buttonActive20, setButtonActive20] = useState(false);
+
+  const [buttonActiveAllDemand, setButtonActiveAllDemand] = useState(true);
+  const [buttonActiveRandom, setButtonActiveRandom] = useState(false);
+  const [buttonActiveNormal, setButtonActiveNormal] = useState(false);
 
   const renderRows = () => {
     return scores.map((score, i) => {
@@ -30,91 +35,157 @@ const LeaderboardTable = ({ scores, setScoreData }) => {
     });
   };
 
-  const resetButtonStates = () => {
-    setButtonActiveAll(false);
+  const resetRoundButtons = () => {
+    setButtonActiveAllRounds(false);
     setButtonActive5(false);
     setButtonActive10(false);
     setButtonActive20(false);
   };
 
-  const handleClickAllButton = () => {
-    resetButtonStates();
-    setButtonActiveAll(true);
-    setScoreFilter("All");
+  const resetDemandButtons = () => {
+    setButtonActiveAllDemand(false);
+    setButtonActiveRandom(false);
+    setButtonActiveNormal(false);
   };
 
-  const handleClick5Button = () => {
-    resetButtonStates();
+  const handleClickAllRounds = () => {
+    resetRoundButtons();
+    setButtonActiveAllRounds(true);
+    setRoundFilter("All");
+  };
+
+  const handleClick5Rounds = () => {
+    resetRoundButtons();
     setButtonActive5(true);
-    setScoreFilter("5");
+    setRoundFilter("5");
   };
 
-  const handleClick10Button = () => {
-    resetButtonStates();
+  const handleClick10Rounds = () => {
+    resetRoundButtons();
     setButtonActive10(true);
-    setScoreFilter("10");
+    setRoundFilter("10");
   };
 
-  const handleClick20Button = () => {
-    resetButtonStates();
+  const handleClick20Rounds = () => {
+    resetRoundButtons();
     setButtonActive20(true);
-    setScoreFilter("20");
+    setRoundFilter("20");
+  };
+
+  const handleClickAllDemand = () => {
+    resetDemandButtons();
+    setButtonActiveAllDemand(true);
+    setDemandTypeFilter("All");
+  };
+
+  const handleClickRandomDemand = () => {
+    resetDemandButtons();
+    setButtonActiveRandom(true);
+    setDemandTypeFilter("Random (Uniform)");
+  };
+
+  const handleClickNormalDemand = () => {
+    resetDemandButtons();
+    setButtonActiveNormal(true);
+    setDemandTypeFilter("(Truncated) Normal Distribution");
   };
 
   useEffect(() => {
     const getScores = async () => {
-      if (scoreFilter === "All") {
-        const newscores = await getAllScores();
+      if (roundFilter === "All" && demandTypeFilter === "All") {
+        const newscores = await getFirst100Scores();
         setScoreData(newscores);
       } else {
-        const newscores = await getTopHundredScoresWithSpecificNumberOfRounds(
-          Number(scoreFilter)
+        const newscores = await getTopHundredScoresSpecificRoundsAndType(
+          roundFilter,
+          demandTypeFilter
         );
         setScoreData(newscores);
       }
     };
     getScores();
-  }, [scoreFilter]);
+  }, [roundFilter, demandTypeFilter]);
 
   return (
     <div className="leaderboard-container">
-      <div className="leaderboard-buttons-box">
-        <div className="leaderboard-buttons-right">
-          <h4>Number of Rounds: </h4>
+      <div className="leaderboard-options">
+        <div className="leaderboard-buttons-box">
+          <div>
+            <h5 className="leaderboard-round-heading">Number of Rounds: </h5>
+          </div>
+          <div>
+            <button
+              onClick={handleClickAllRounds}
+              className={
+                buttonActiveAllRounds
+                  ? "btn leaderboard-btn"
+                  : "btn leaderboard2-btn"
+              }
+            >
+              All
+            </button>
+            <button
+              onClick={handleClick5Rounds}
+              className={
+                buttonActive5 ? "btn leaderboard-btn" : "btn leaderboard2-btn"
+              }
+            >
+              5
+            </button>
+            <button
+              onClick={handleClick10Rounds}
+              className={
+                buttonActive10 ? "btn leaderboard-btn" : "btn leaderboard2-btn"
+              }
+            >
+              10
+            </button>
+            <button
+              onClick={handleClick20Rounds}
+              className={
+                buttonActive20 ? "btn leaderboard-btn" : "btn leaderboard2-btn"
+              }
+            >
+              20
+            </button>
+          </div>
         </div>
-        <div className="leaderboard-buttons-left">
-          <button
-            onClick={handleClickAllButton}
-            className={
-              buttonActiveAll ? "btn leaderboard-btn" : "btn leaderboard2-btn"
-            }
-          >
-            All
-          </button>
-          <button
-            onClick={handleClick5Button}
-            className={
-              buttonActive5 ? "btn leaderboard-btn" : "btn leaderboard2-btn"
-            }
-          >
-            5
-          </button>
-          <button
-            onClick={handleClick10Button}
-            className={
-              buttonActive10 ? "btn leaderboard-btn" : "btn leaderboard2-btn"
-            }
-          >
-            10
-          </button>
-          <button
-            onClick={handleClick20Button}
-            className={
-              buttonActive20 ? "btn leaderboard-btn" : "btn leaderboard2-btn"
-            }
-          >
-            20
-          </button>
+        <div className="leaderboard-buttons-box">
+          <div>
+            <h5 className="leaderboard-round-heading">Demand Type: </h5>
+          </div>
+          <div>
+            <button
+              onClick={handleClickAllDemand}
+              className={
+                buttonActiveAllDemand
+                  ? "btn leaderboard-btn"
+                  : "btn leaderboard2-btn"
+              }
+            >
+              All
+            </button>
+            <button
+              onClick={handleClickRandomDemand}
+              className={
+                buttonActiveRandom
+                  ? "btn leaderboard-btn"
+                  : "btn leaderboard2-btn"
+              }
+            >
+              Random (Uniform)
+            </button>
+            <button
+              onClick={handleClickNormalDemand}
+              className={
+                buttonActiveNormal
+                  ? "btn leaderboard-btn"
+                  : "btn leaderboard2-btn"
+              }
+            >
+              (Truncated) Normal Distribution
+            </button>
+          </div>
         </div>
       </div>
 
