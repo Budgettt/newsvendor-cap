@@ -84,7 +84,7 @@ const GamePage = () => {
     // Shift value to match avg and std
     let demand = Math.round(z * normalSTD + normalAVG);
 
-    // Truncated demand to prevent negatives
+    // Truncated demand to prevent outliers/negative
     if (demand < minNormalDemand) {
       demand = Math.round(minNormalDemand);
     }
