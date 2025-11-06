@@ -17,13 +17,13 @@ const UNIT_SELLING_PRICE = 25;
 const ROUND_LIMIT = 20;
 const ROUND_MIN = 5;
 // Random Uniform
-const MIN_DEMAND = 50;
-const MAX_DEMAND = 150;
+const MIN_DEMAND = 100;
+const MAX_DEMAND = 300;
 // Random Normal
 const MIN_STD = 10;
 const MAX_STD = 50;
-const MIN_AVG = 100;
-const MAX_AVG = 150;
+const MIN_AVG = 150;
+const MAX_AVG = 250;
 // mean +- 2 std // 95% CI
 // Min demand = AVG - 2 * STD
 // Max demand = AVG + 2 * STD
@@ -38,8 +38,8 @@ const GamePage = () => {
   const nSTD = randomiseInRange(MAX_STD, MIN_STD);
   const nAVG = randomiseInRange(MAX_AVG, MIN_AVG);
   // Min/Max Normal Demand to 95% C.I
-  const minNormalDemand = nAVG - 2 * nSTD;
-  const maxNormalDemand = nAVG + 2 * nSTD;
+  const minNormalDemand = nAVG - 3 * nSTD;
+  const maxNormalDemand = nAVG + 3 * nSTD;
 
   // Settings state
   const [playerName, setPlayerName] = useState("");
@@ -75,8 +75,8 @@ const GamePage = () => {
   };
 
   const getRandomNormalDemand = () => {
-    let x = Math.random();
-    let y = Math.random();
+    let x = randomiseInRange(0, 1);
+    let y = randomiseInRange(0, 1);
 
     // Box-Muller Transform
     let z = Math.sqrt(-2.0 * Math.log(x)) * Math.cos(2.0 * Math.PI * y);

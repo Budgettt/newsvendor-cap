@@ -26,9 +26,10 @@ const GameHelp = ({ costPerUnit, sellingPrice, minDemand, maxDemand }) => {
           </p>
           <p>
             Without any historical data, the suggested ordering quantity for the
-            first week is <strong className="strong-blue">100 units.</strong>{" "}
-            Your goal is the predict the optimal ordering quantity each week to
-            maximise profits for your store.
+            first week (round) is{" "}
+            <strong className="strong-blue">200 units.</strong> Your goal is the
+            predict the optimal ordering quantity each week to maximise profits
+            for your store.
           </p>
           <button
             className="button-tips"
@@ -40,21 +41,32 @@ const GameHelp = ({ costPerUnit, sellingPrice, minDemand, maxDemand }) => {
             <>
               {" "}
               <p>
-                Under <strong>Random uniform distribution</strong>, the minimum
-                demand is <strong>{minDemand}</strong> units and the maximum
-                demand is <strong>{maxDemand}</strong> units each week.
+                <strong>Random uniform distribution:</strong> the minimum demand
+                is <strong>{minDemand}</strong> units and the maximum demand is{" "}
+                <strong>{maxDemand}</strong> units each week (round).
               </p>
               <p>
-                Under <strong>(Truncated) normal distribution</strong>, the
-                minimum and maximum demand each week falls within (
-                <math xmlns="http://www.w3.org/1998/Math/MathML">
-                  <mi>&#x3bc;</mi>
-                  <mo>&#xb1;</mo>
-                  <mn>2</mn>
-                  <mi>&#x3c3;</mi>
-                </math>
-                ) where (<mi>&#x3bc;</mi>) is the final average and (
-                <mi>&#x3c3;</mi>) is the standard deviation.
+                <strong>(Truncated) normal distribution:</strong> the minimum
+                and maximum demand each week (round) falls within{" "}
+                <strong>
+                  (
+                  <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mi>&#x3bc;</mi>
+                    <mo>&#xb1;</mo>
+                    <mn>3</mn>
+                    <mi>&#x3c3;</mi>
+                  </math>
+                  )
+                </strong>{" "}
+                where{" "}
+                <strong>
+                  (<mi>&#x3bc;</mi>)
+                </strong>{" "}
+                is the final demand average and{" "}
+                <strong>
+                  (<mi>&#x3c3;</mi>)
+                </strong>{" "}
+                is the final demand standard deviation.
               </p>
             </>
           )}
